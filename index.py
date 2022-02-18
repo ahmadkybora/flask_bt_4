@@ -8,9 +8,10 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-token = os.getenv('TOKEN')
+# token = os.getenv('TOKEN')
+token = "2016260844:AAGwWwI6ZLA7cLUNNcAbbFz2W84wkJebZyo"
 
-def start(update,context):
+def start(update: Update,context: CallbackContext):
     update.message.reply_text("hi")
 
 def main():
