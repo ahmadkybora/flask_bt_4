@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 token = os.getenv('TOKEN')
 
 def start(update,context):
-    update.message.reply_text(update.message.text)
+    update.message.reply_text("hi")
 
 def main():
     updater = Updater(token, use_context=True)
@@ -20,7 +20,6 @@ def main():
     dispatcher.add_handler(CommandHandler("start", start))
     updater.start_polling()
     updater.idle()
-
 
 if __name__ == '__main__':
     main()
