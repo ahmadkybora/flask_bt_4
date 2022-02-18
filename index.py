@@ -10,23 +10,23 @@ logger = logging.getLogger(__name__)
 
 token = "2016260844:AAGwWwI6ZLA7cLUNNcAbbFz2W84wkJebZyo"
 
-def start(update: Update, context: CallbackContext):
+def start(update, context):
     update.message.reply_text('start!')
 
 
-def help(update: Update, context: CallbackContext):
+def help(update, context):
     update.message.reply_text('Help!')
 
 
-def contact_us(update: Update, context: CallbackContext):
+def contact_us(update, context):
     update.message.reply_text("Contact us")
 
 
-def echo(update: Update, context: CallbackContext):
+def echo(update, context):
     update.message.reply_text(update.message.text)
 
 
-def error(update: Update, context: CallbackContext):
+def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
