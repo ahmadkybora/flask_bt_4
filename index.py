@@ -1,37 +1,52 @@
+from telegram import Update,ReplyKeyboardMarkup,ReplyKeyboardRemove,Bot,InlineKeyboardButton,InlineKeyboardMarkup,KeyboardButton,CallbackQuery,ParseMode
+from telegram.ext import CommandHandler,Updater,Dispatcher,MessageHandler,Filters,CallbackContext,CallbackQueryHandler
 import logging
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-
+import os
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
+token = os.getenv("TOKEN")
 
-def start(update, context):
-    update.message.reply_text('Hi!')
+def start(update: Update, context: CallbackContext):
+    update.message.reply_text('start!')
 
 
-def help(update, context):
+def help(update: Update, context: CallbackContext):
     update.message.reply_text('Help!')
 
 
-def echo(update, context):
+def contact_us(update: Update, context: CallbackContext):
+    update.message.reply_text("Contact us")
+
+
+def echo(update: Update, context: CallbackContext):
     update.message.reply_text(update.message.text)
 
 
-def error(update, context):
+def error(update: Update, context: CallbackContext):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
 def main():
-    token = "2016260844:AAGwWwI6ZLA7cLUNNcAbbFz2W84wkJebZyo"
     updater = Updater(token, use_context=True)
-    dp = updater.dispatcher
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(MessageHandler(Filters.text, echo))
-    dp.add_error_handler(error)
+    dispatcher = updater.dispatcher
+
+    keyboard = [
+        [KeyboardButton('Start')],
+        [KeyboardButton('Contact us')],
+        [KeyboardButton('Help')], 
+        [KeyboardButton('File')]
+    ]
+    key = ReplyKeyboardMarkup(keyboard,resize_keyboard=True)
+
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(CommandHandler("help", help))
+    dispatcher.add_handler(CommandHandler("contact us", contact_us))
+    dispatcher.add_handler(MessageHandler(Filters.text, echo))
+    dispatcher.add_error_handler(error)
     updater.start_polling()
     updater.idle()
 
