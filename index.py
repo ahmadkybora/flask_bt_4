@@ -16,7 +16,7 @@ def start(update, context):
         [KeyboardButton('کمک')], 
         [KeyboardButton('فایل')]
     ]
-    message = "start!"
+    message = "hello! how are you"
     reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text(message, reply_markup=reply_markup)
 
