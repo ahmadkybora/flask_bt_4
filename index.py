@@ -16,8 +16,9 @@ def start(update, context):
         [KeyboardButton('کمک')], 
         [KeyboardButton('فایل')]
     ]
-    key = ReplyKeyboardMarkup(keyboard,resize_keyboard=True)
-    update.message.reply_text('start!', reply_markup=key)
+    message = "start!"
+    reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
+    update.message.reply_text(message, reply_markup=reply_markup)
 
 
 def help(update, context):
