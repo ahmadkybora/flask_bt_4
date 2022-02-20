@@ -1,4 +1,5 @@
 import logging
+from telegram import ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 
@@ -9,7 +10,14 @@ logger = logging.getLogger(__name__)
 token = "2016260844:AAGwWwI6ZLA7cLUNNcAbbFz2W84wkJebZyo"
 
 def start(update, context):
-    update.message.reply_text('start!')
+    keyboard = [
+        [KeyboardButton('Start')],
+        [KeyboardButton('Contact us')],
+        [KeyboardButton('Help')], 
+        [KeyboardButton('File')]
+    ]
+    key = ReplyKeyboardMarkup(keyboard,resize_keyboard=True)
+    update.message.reply_text('start!', key)
 
 
 def help(update, context):
