@@ -17,7 +17,7 @@ def start(update, context):
         [KeyboardButton('فایل')]
     ]
     key = ReplyKeyboardMarkup(keyboard,resize_keyboard=True)
-    update.message.reply_text('start!', key)
+    update.message.reply_text('start!', reply_markup=key)
 
 
 def help(update, context):
