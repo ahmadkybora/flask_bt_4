@@ -1,5 +1,5 @@
 import logging
-from telegram import ReplyKeyboardMarkup, KeyboardButton
+from telegram import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 
@@ -11,10 +11,8 @@ token = "2016260844:AAGwWwI6ZLA7cLUNNcAbbFz2W84wkJebZyo"
 
 def start(update, context):
     keyboard = [
-        [KeyboardButton('شروع')],
-        [KeyboardButton('درباره ما')],
-        [KeyboardButton('کمک')], 
-        [KeyboardButton('فایل')]
+        [InlineKeyboardButton('شروع'), InlineKeyboardButton('درباره ما')], 
+        [InlineKeyboardButton('سوال'), InlineKeyboardButton('جواب')], 
     ]
     message = "hello! how are you"
     reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
