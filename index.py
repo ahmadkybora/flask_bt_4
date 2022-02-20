@@ -1,7 +1,7 @@
 import logging
 from telegram import ReplyKeyboardMarkup, InlineKeyboardMarkup, KeyboardButton, InlineKeyboardButton, Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-
+from pygame import mixer
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -32,7 +32,13 @@ def question(update: Update, context: CallbackContext):
     update.message.reply_text("بنال")
 
 def file(update: Update, context: CallbackContext):
-    update.message.reply_text("فایل")
+    # mixer.init()
+    # mixer.music.load("1.mp3")
+    # mixer.music.set_volume(0.7)
+    # mixer.music.play()
+    file = context.bot.send_audio(update.effective_chat.id, audio=open('1.mp3', 'rb'))
+    # bot.send_audio(chat_id=chat_id, audio=open('tests/test.mp3', 'rb'))
+    update.message.reply_text(file)
 
 
 def echo(update: Update, context: CallbackContext):
