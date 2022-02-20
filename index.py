@@ -11,8 +11,8 @@ token = "2016260844:AAGwWwI6ZLA7cLUNNcAbbFz2W84wkJebZyo"
 
 def start(update, context):
     keyboard = [
-        [InlineKeyboardButton('شروع'), InlineKeyboardButton('درباره ما')], 
-        [InlineKeyboardButton('سوال'), InlineKeyboardButton('جواب')], 
+        [InlineKeyboardButton('شروع', callback_data='1'), InlineKeyboardButton('درباره ما', callback_data='2')], 
+        [InlineKeyboardButton('سوال', callback_data='3'), InlineKeyboardButton('جواب', callback_data='4')], 
     ]
     message = "hello! how are you"
     reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
