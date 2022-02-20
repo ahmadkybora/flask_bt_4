@@ -1,6 +1,6 @@
 import logging
-from telegram import ReplyKeyboardMarkup, InlineKeyboardMarkup, KeyboardButton, InlineKeyboardButton
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram import ReplyKeyboardMarkup, InlineKeyboardMarkup, KeyboardButton, InlineKeyboardButton, Update
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -9,39 +9,48 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 token = "2016260844:AAGwWwI6ZLA7cLUNNcAbbFz2W84wkJebZyo"
 
-def start(update, context):
+def start(update: Update, context: CallbackContext):
     keyboard = [
         [InlineKeyboardButton('شروع', callback_data='1'), InlineKeyboardButton('درباره ما', callback_data='2')], 
-        [InlineKeyboardButton('سوال', callback_data='3'), InlineKeyboardButton('جواب', callback_data='4')], 
+        [InlineKeyboardButton('سوال', callback_data='3'), InlineKeyboardButton('فایل', callback_data='4')], 
     ]
-    message = "hello! how are you"
+    message = "لطفا انتخاب کنید"
     reply_markup = InlineKeyboardMarkup(keyboard)
     # reply_markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
     update.message.reply_text(message, reply_markup=reply_markup)
 
 
-def help(update, context):
-    update.message.reply_text('Help!')
+def help(update: Update, context: CallbackContext):
+    update.message.reply_text('کمک')
 
 
-def contact_us(update, context):
-    update.message.reply_text('contact us!')
+def contact_us(update: Update, context: CallbackContext):
+    update.message.reply_text('درباره ما')
 
 
-def echo(update, context):
-    update.message.reply_text(update.message.text)
+def question(update: Update, context: CallbackContext):
+    update.message.reply_text("بنال")
+
+def file(update: Update, context: CallbackContext):
+    update.message.reply_text("فایل")
 
 
-def error(update, context):
+def echo(update: Update, context: CallbackContext):
+    update.message.reply_text("نمیفهمم چی میگی")
+
+
+def error(update: Update, context: CallbackContext):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
 def main():
     updater = Updater(token, use_context=True)
     dispatcher = updater.dispatcher
-    dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("help", help))
-    dispatcher.add_handler(CommandHandler("contact_us", contact_us))
+    dispatcher.add_handler(CommandHandler("شروع", start))
+    dispatcher.add_handler(CommandHandler("کمک", help))
+    dispatcher.add_handler(CommandHandler("درباره ما", contact_us))
+    dispatcher.add_handler(CommandHandler("سوال", question))
+    dispatcher.add_handler(CommandHandler("فایل", file))
     dispatcher.add_handler(MessageHandler(Filters.text, echo))
     dispatcher.add_error_handler(error)
     updater.start_polling()
