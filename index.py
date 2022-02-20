@@ -11,10 +11,10 @@ token = "2016260844:AAGwWwI6ZLA7cLUNNcAbbFz2W84wkJebZyo"
 
 def start(update, context):
     keyboard = [
-        [KeyboardButton('Start')],
-        [KeyboardButton('Contact us')],
-        [KeyboardButton('Help')], 
-        [KeyboardButton('File')]
+        [KeyboardButton('شروع')],
+        [KeyboardButton('درباره ما')],
+        [KeyboardButton('کمک')], 
+        [KeyboardButton('فایل')]
     ]
     key = ReplyKeyboardMarkup(keyboard,resize_keyboard=True)
     update.message.reply_text('start!', key)
