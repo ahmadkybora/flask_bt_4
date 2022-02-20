@@ -9,7 +9,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 token = "2016260844:AAGwWwI6ZLA7cLUNNcAbbFz2W84wkJebZyo"
 
-def start(update: Update, context: CallbackContext):
+def start(update, context):
     keyboard = [
         [InlineKeyboardButton('شروع', callback_data='1'), InlineKeyboardButton('درباره ما', callback_data='2')], 
         [InlineKeyboardButton('سوال', callback_data='3'), InlineKeyboardButton('فایل', callback_data='4')], 
@@ -20,26 +20,26 @@ def start(update: Update, context: CallbackContext):
     update.message.reply_text(message, reply_markup=reply_markup)
 
 
-def help(update: Update, context: CallbackContext):
+def help(update, context):
     update.message.reply_text('کمک')
 
 
-def contact_us(update: Update, context: CallbackContext):
+def contact_us(update, context):
     update.message.reply_text('درباره ما')
 
 
-def question(update: Update, context: CallbackContext):
+def question(update, context):
     update.message.reply_text("بنال")
 
-def file(update: Update, context: CallbackContext):
+def file(update, context):
     update.message.reply_text("فایل")
 
 
-def echo(update: Update, context: CallbackContext):
+def echo(update, context):
     update.message.reply_text("نمیفهمم چی میگی")
 
 
-def error(update: Update, context: CallbackContext):
+def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
