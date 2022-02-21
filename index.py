@@ -2,6 +2,7 @@ import logging
 from telegram import ReplyKeyboardMarkup, InlineKeyboardMarkup, KeyboardButton, InlineKeyboardButton, Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 # from pygame import mixer
+from os import listdir
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -32,8 +33,12 @@ def question(update: Update, context: CallbackContext):
     update.message.reply_text("بنال")
 
 def file(update: Update, context: CallbackContext):
-    file = context.bot.get_file(update.message.document).download()
-    update.message.reply_text(file)
+    images = []
+    for img in listdir('img'):
+        with open(f'img/{img}', 'br') as f:
+            images.append(f.read())
+    # file = context.bot.get_file(update.message.document).download()
+    # update.message.reply_text(file)
     # mixer.init()
     # mixer.music.load("1.mp3")
     # mixer.music.set_volume(0.7)
@@ -69,7 +74,8 @@ def error(update: Update, context: CallbackContext):
 def main():
     updater = Updater(token, use_context=True)
     dispatcher = updater.dispatcher
-    dispatcher.add_handler(CommandHandler("Start", start))
+    dispatcher.add_handler(CommandHandler(["Start", "s", "START", "start"], start))
+    dispatcher.add_handler(MessageHandler(["Start", "s", "START", "start"], start))
     dispatcher.add_handler(CommandHandler("Help", help))
     dispatcher.add_handler(CommandHandler("contactUs", contact_us))
     dispatcher.add_handler(CommandHandler("Question", question))
