@@ -33,7 +33,11 @@ def question(update: Update, context: CallbackContext):
     update.message.reply_text("بنال")
 
 def file(update: Update, context: CallbackContext):
-    update.message.reply_text("بهمث")
+    fileName = update.message.document.get_file()
+    # f = BytesIO(file.download_as_bytearray)
+    # file_bytes = np.asarray(bytearray(f.read(), dtype=np.uint8))
+    file = context.bot.sendPhoto(update.effective_chat.id, fileName)
+    update.message.reply_text(file)
     # images = []
     # for img in listdir('img'):
     #     with open(f'img/{img}', 'br') as f:
@@ -82,7 +86,8 @@ def main():
     dispatcher.add_handler(CommandHandler("Question", question))
     # dispatcher.add_handler(CommandHandler("File", file))
     # dispatcher.add_handler(MessageHandler(Filters.text, file))
-    dispatcher.add_handler(MessageHandler(Filters.document, file))
+    # dispatcher.add_handler(MessageHandler(Filters.document, file))
+    dispatcher.add_handler(MessageHandler(Filters.document.mime_type("image/jpeg"), file))
     # dispatcher.add_handler(MessageHandler(Filters.text, echo))
     dispatcher.add_error_handler(error)
     updater.start_polling()
