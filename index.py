@@ -45,7 +45,8 @@ def file(update: Update, context: CallbackContext):
     file = context.bot.getFile(update.message.document.file_id)
     mp3 = file.download(update.message.document.file_name)
     file = context.bot.send_audio(update.effective_chat.id, audio=open(mp3, 'rb'))
-    update.message.reply_text(file)
+    update.message.reply_text("نمیفهمم چی میگی")
+    # update.message.reply_text(file)
 
 
 def get_file():
