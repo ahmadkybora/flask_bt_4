@@ -33,10 +33,11 @@ def question(update: Update, context: CallbackContext):
     update.message.reply_text("بنال")
 
 def file(update: Update, context: CallbackContext):
-    images = []
-    for img in listdir('img'):
-        with open(f'img/{img}', 'br') as f:
-            images.append(f.read())
+    update.message.reply_text("بهمث")
+    # images = []
+    # for img in listdir('img'):
+    #     with open(f'img/{img}', 'br') as f:
+    #         images.append(f.read())
     # file = context.bot.get_file(update.message.document).download()
     # update.message.reply_text(file)
     # mixer.init()
@@ -81,7 +82,7 @@ def main():
     dispatcher.add_handler(CommandHandler("Question", question))
     # dispatcher.add_handler(CommandHandler("File", file))
     # dispatcher.add_handler(MessageHandler(Filters.text, file))
-    dispatcher.add_handler(MessageHandler(Filters.document, file))
+    dispatcher.add_handler(MessageHandler(Filters.photo, file))
     dispatcher.add_handler(MessageHandler(Filters.text, echo))
     dispatcher.add_error_handler(error)
     updater.start_polling()
