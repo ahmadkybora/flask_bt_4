@@ -1,4 +1,5 @@
 from telegram import Update
+from telegram import InputMediaPhoto
 from telegram.ext import Updater, CallbackContext, dispatcher
 from telegram.ext import CommandHandler, MessageHandler, Filters
 from json import loads, dumps
@@ -8,6 +9,8 @@ from decouple import config
 api_token = config("API_TOKEN")
 
 def str2Json(str):
+    # اینجا یک فایل میسازد
+    # با بسوند json
     with open('01x02/sample.json', 'w') as f:
         f.write(dumps(loads(str), index=4))
         return 0
@@ -27,6 +30,8 @@ def start(update: Update, context: CallbackContext):
     # args = context.args
     # context.bot.send_message(chat_id=chat_id, text=f"arg args {args}")
 
+    #میسازد
+    str2Json(update.message_to_json())
     chat_id = update.message.chat_id
     message_id = update.message.message_id
     context.bot.send_message(chat_id=chat_id, text="hello world")
@@ -56,6 +61,19 @@ def send_img(update: Update, context: CallbackContext):
             context.bot.send_message(chat_id, "you")
     return
 
+def send_all(update: Update, context: CallbackContext):
+    chat_id = update.message.chat_id
+    message_id = update.message.message_id
+    mediaGroup = []
+    for img in images:
+        if img == 'image-1.jpg':
+            photo = InputMediaPhoto(images[img], caption='all images')
+        else:
+            photo = InputMediaPhoto(images[img])
+
+        mediaGroup.append(images[img])
+    
+    context.bot.send_media_group(chat_id, mediaGroup)
     #context.bot.send_photo(chat_id=chat_id, photot=)
 dispatcher.add_handler(CommandHandler(['START', 'start'], start))
 dispatcher.add_handler(CommandHandler('list_all', list_img))
