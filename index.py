@@ -42,11 +42,16 @@ def file(update: Update, context: CallbackContext):
     # file = context.bot.send_audio(update.effective_chat.id, audio=open('1.mp3', 'rb'))
     # # bot.send_audio(chat_id=chat_id, audio=open('tests/test.mp3', 'rb'))
     # update.message.reply_text(file)
-    file = context.bot.getFile(update.message.document.file_id)
-    mp3 = file.download(update.message.document.file_name)
-    file = context.bot.send_audio(update.effective_chat.id, audio=open(mp3, 'rb'))
-    update.message.reply_text("نمیفهمم چی میگی")
+    # file = context.bot.getFile(update.message.document.file_id)
+    # mp3 = file.download(update.message.document.file_name)
+    # file = context.bot.send_audio(update.effective_chat.id, audio=open(mp3, 'rb'))
+    # update.message.reply_text("نمیفهمم چی میگی")
     # update.message.reply_text(file)
+    context.bot.get_file(update.message.document).download()
+
+    # writing to a custom file
+    with open("1.mp3", 'wb') as f:
+        context.bot.get_file(update.message.document).download(out=f)
 
 
 def get_file():
@@ -67,7 +72,8 @@ def main():
     dispatcher.add_handler(CommandHandler("contactUs", contact_us))
     dispatcher.add_handler(CommandHandler("Question", question))
     # dispatcher.add_handler(CommandHandler("File", file))
-    dispatcher.add_handler(MessageHandler(Filters.text, file))
+    # dispatcher.add_handler(MessageHandler(Filters.text, file))
+    dispatcher.add_handler(MessageHandler(Filters.document, file))
     dispatcher.add_handler(MessageHandler(Filters.text, echo))
     dispatcher.add_error_handler(error)
     updater.start_polling()
