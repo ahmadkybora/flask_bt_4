@@ -1,7 +1,7 @@
 import logging
 from telegram import ReplyKeyboardMarkup, InlineKeyboardMarkup, KeyboardButton, InlineKeyboardButton, Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-from pygame import mixer
+# from pygame import mixer
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -36,11 +36,20 @@ def file(update: Update, context: CallbackContext):
     # mixer.music.load("1.mp3")
     # mixer.music.set_volume(0.7)
     # mixer.music.play()
-    file = context.bot.send_audio(update.effective_chat.id, audio=open('1.mp3', 'rb'))
-    # bot.send_audio(chat_id=chat_id, audio=open('tests/test.mp3', 'rb'))
+    # file = context.bot.getFile(update.message.voice.file_id)
+    # print ("file_id: " + str(update.message.voice.file_id))
+    # file.download('voice.ogg')
+    # file = context.bot.send_audio(update.effective_chat.id, audio=open('1.mp3', 'rb'))
+    # # bot.send_audio(chat_id=chat_id, audio=open('tests/test.mp3', 'rb'))
+    # update.message.reply_text(file)
+    file = context.bot.getFile(update.message.document.file_id)
+    mp3 = file.download(update.message.document.file_name)
+    file = context.bot.send_audio(update.effective_chat.id, audio=open(mp3, 'rb'))
     update.message.reply_text(file)
 
 
+def get_file():
+    get_file_api_url = f''
 def echo(update: Update, context: CallbackContext):
     update.message.reply_text("نمیفهمم چی میگی")
 
