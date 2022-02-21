@@ -74,8 +74,8 @@ def error(update: Update, context: CallbackContext):
 def main():
     updater = Updater(token, use_context=True)
     dispatcher = updater.dispatcher
-    dispatcher.add_handler(CommandHandler(["Start", "s", "START", "start"], start))
-    dispatcher.add_handler(MessageHandler(["Start", "s", "START", "start"], start))
+    dispatcher.add_handler(CommandHandler("Start", start))
+    # dispatcher.add_handler(MessageHandler(["Start", "s", "START", "start"], start))
     dispatcher.add_handler(CommandHandler("Help", help))
     dispatcher.add_handler(CommandHandler("contactUs", contact_us))
     dispatcher.add_handler(CommandHandler("Question", question))
