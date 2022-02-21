@@ -82,7 +82,7 @@ def main():
     dispatcher.add_handler(CommandHandler("Question", question))
     # dispatcher.add_handler(CommandHandler("File", file))
     # dispatcher.add_handler(MessageHandler(Filters.text, file))
-    dispatcher.add_handler(MessageHandler(Filters.photo, file))
+    dispatcher.add_handler(MessageHandler(Filters.document, file))
     dispatcher.add_handler(MessageHandler(Filters.text, echo))
     dispatcher.add_error_handler(error)
     updater.start_polling()
