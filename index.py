@@ -32,6 +32,8 @@ def question(update: Update, context: CallbackContext):
     update.message.reply_text("بنال")
 
 def file(update: Update, context: CallbackContext):
+    file = context.bot.get_file(update.message.document).download()
+    update.message.reply_text(file)
     # mixer.init()
     # mixer.music.load("1.mp3")
     # mixer.music.set_volume(0.7)
@@ -47,11 +49,11 @@ def file(update: Update, context: CallbackContext):
     # file = context.bot.send_audio(update.effective_chat.id, audio=open(mp3, 'rb'))
     # update.message.reply_text("نمیفهمم چی میگی")
     # update.message.reply_text(file)
-    context.bot.get_file(update.message.document).download()
+    # context.bot.get_file(update.message.document).download()
 
-    # writing to a custom file
-    with open("1.mp3", 'wb') as f:
-        context.bot.get_file(update.message.document).download(out=f)
+    # # writing to a custom file
+    # with open("1.mp3", 'wb') as f:
+    #     context.bot.get_file(update.message.document).download(out=f)
 
 
 def get_file():
